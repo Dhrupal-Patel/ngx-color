@@ -8,7 +8,6 @@ import { ColorBlockModule } from '../lib/block/block.component';
 import { ColorChromeModule } from '../lib/chrome/chrome.component';
 import { ColorCircleModule } from '../lib/circle/circle.component';
 import { ColorCompactModule } from '../lib/compact/compact.component';
-import { ColorGithubModule } from '../lib/github/github.component';
 import { ColorHueModule } from '../lib/hue/hue-picker.component';
 import { ColorMaterialModule } from '../lib/material/material.component';
 import { ColorPhotoshopModule } from '../lib/photoshop/photoshop.component';
@@ -19,6 +18,9 @@ import { ColorTwitterModule } from '../lib/twitter/twitter.component';
 import { AppComponent } from './app.component';
 import { FooterComponent } from './footer.component';
 import { ColorShadeModule } from '../lib/shade/shade-picker.component';
+import { RxColorpickerDirective } from '../app/rx-colorpicker.directive';
+import { NgbPopover } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AppComponent, FooterComponent],
@@ -32,7 +34,6 @@ import { ColorShadeModule } from '../lib/shade/shade-picker.component';
     ColorChromeModule,
     ColorCircleModule,
     ColorCompactModule,
-    ColorGithubModule,
     ColorHueModule,
     ColorMaterialModule,
     ColorPhotoshopModule,
@@ -41,6 +42,9 @@ import { ColorShadeModule } from '../lib/shade/shade-picker.component';
     ColorSwatchesModule,
     ColorTwitterModule,
     ColorShadeModule,
+    RxColorpickerDirective,
+    NgbPopover,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent],

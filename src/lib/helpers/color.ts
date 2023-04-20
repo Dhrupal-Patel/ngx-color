@@ -3,7 +3,7 @@ import { TinyColor } from '@ctrl/tinycolor';
 import { Color } from './color.interfaces';
 
 export function simpleCheckForValidColor(data) {
-  const keysToCheck = ['r', 'g', 'b', 'a', 'h', 's', 'l', 'v'];
+  const keysToCheck = ['r', 'g', 'b', 'a', 'h', 's', 'l', 'v', 'c', 'm', 'y', 'k'];
   let checked = 0;
   let passed = 0;
   keysToCheck.forEach(letter => {
@@ -34,6 +34,8 @@ export function toState(data, oldHue?: number, disableAlpha?: boolean): Color {
   const hsv = color.toHsv();
   const rgb = color.toRgb();
   const hex = color.toHex();
+  const cmyk = toCmyk();
+
   if (hsl.s === 0) {
     hsl.h = oldHue || 0;
     hsv.h = oldHue || 0;
@@ -44,6 +46,7 @@ export function toState(data, oldHue?: number, disableAlpha?: boolean): Color {
     hsl,
     hex: transparent ? 'transparent' : color.toHexString(),
     rgb,
+    cmyk,
     hsv,
     oldHue: data.h || oldHue || hsl.h,
     source: data.source,
@@ -64,4 +67,13 @@ export function getContrastingColor(data) {
   }
   const yiq = (col.rgb.r * 299 + col.rgb.g * 587 + col.rgb.b * 114) / 1000;
   return yiq >= 128 ? '#000' : '#fff';
+}
+
+export function toCmyk() {
+  return {
+    c: 0,
+    m: 0,
+    y: 0,
+    k: 0,
+  };
 }

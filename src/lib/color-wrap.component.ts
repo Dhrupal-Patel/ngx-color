@@ -16,7 +16,7 @@ import { Subscription } from 'rxjs';
 import { debounceTime, tap } from 'rxjs/operators';
 
 import { simpleCheckForValidColor, toState } from './helpers/color';
-import { Color, HSLA, HSVA, RGBA } from './helpers/color.interfaces';
+import { Color, HSLA, HSVA, RGBA, CMYK } from './helpers/color.interfaces';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export interface ColorEvent {
@@ -28,7 +28,8 @@ export enum ColorMode {
   HEX = 'hex',
   HSL = 'hsl',
   HSV = 'hsv',
-  RGB = 'rgb'
+  RGB = 'rgb',
+  CMYK = 'cmyk'
 }
 
 @Component({
@@ -51,13 +52,14 @@ export class ColorWrap implements OnInit, OnChanges, OnDestroy, ControlValueAcce
    */
   @Input() mode: ColorMode = ColorMode.HEX;
 
-  @Input() color: HSLA | HSVA | RGBA | string = {
+  @Input() color: HSLA | HSVA | RGBA | CMYK | string = {
     h: 250,
     s: 0.5,
     l: 0.2,
     a: 1,
   };
-  @Output() colorChange = new EventEmitter<HSLA | HSVA | RGBA | string>();
+
+  @Output() colorChange = new EventEmitter<HSLA | HSVA | RGBA | CMYK | string>();
   @Output() onChange = new EventEmitter<ColorEvent>();
   @Output() onChangeComplete = new EventEmitter<ColorEvent>();
   @Output() onSwatchHover = new EventEmitter<ColorEvent>();
@@ -65,6 +67,7 @@ export class ColorWrap implements OnInit, OnChanges, OnDestroy, ControlValueAcce
   hsl!: HSLA;
   hsv!: HSVA;
   rgb!: RGBA;
+  cmyk!: CMYK;
   hex!: string;
   source!: string;
   currentColor!: string;
@@ -92,6 +95,9 @@ export class ColorWrap implements OnInit, OnChanges, OnDestroy, ControlValueAcce
               break;
             case ColorMode.RGB:
               this.colorChange.emit(event.color.rgb);
+              break;
+            case ColorMode.CMYK:
+              this.colorChange.emit(event.color.cmyk);
               break;
             default:
               const msg = `The mode '${this.mode}' is not supported`;
@@ -121,6 +127,7 @@ export class ColorWrap implements OnInit, OnChanges, OnDestroy, ControlValueAcce
     this.hsl = data.hsl;
     this.hsv = data.hsv;
     this.rgb = data.rgb;
+    this.cmyk = data.cmyk;
     this.hex = data.hex;
     this.source = data.source;
     this.afterValidChange();

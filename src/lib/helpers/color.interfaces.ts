@@ -4,6 +4,13 @@ export interface RGB {
   b: number;
 }
 
+export interface CMYK {
+  c: number;
+  m: number;
+  y: number;
+  k: number;
+}
+
 export interface RGBA extends RGB {
   a: number;
 }
@@ -41,6 +48,7 @@ export interface Color {
   rgb: RGBA;
   hsl: HSLA;
   hsv: HSVA;
+  cmyk: CMYK;
   oldHue: number;
   source: string;
 }

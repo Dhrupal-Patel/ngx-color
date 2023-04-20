@@ -6,13 +6,13 @@ import {
   Output,
 } from '@angular/core';
 
-import { isValidHex, HSV, RGB } from 'ngx-color';
+import { isValidHex, HSV, RGB, CMYK } from 'ngx-color';
 
 @Component({
   selector: 'color-photoshop-fields',
   template: `
   <div class="photoshop-fields">
-    <color-editable-input
+    <!-- <color-editable-input
       [value]="round(hsv.h)"
       label="h"
       (onChange)="handleValueChange($event)"
@@ -30,7 +30,8 @@ import { isValidHex, HSV, RGB } from 'ngx-color';
       (onChange)="handleValueChange($event)"
       [style]="{input: RGBinput, wrap: RGBwrap, label: RGBlabel}"
     ></color-editable-input>
-    <div class="photoshop-divider"></div>
+    <div class="photoshop-divider"></div> -->
+    <div *ngIf="showRGB">
     <color-editable-input
       [value]="rgb.r"
       label="r"
@@ -49,18 +50,48 @@ import { isValidHex, HSV, RGB } from 'ngx-color';
       (onChange)="handleValueChange($event)"
       [style]="{input: RGBinput, wrap: RGBwrap, label: RGBlabel}"
     ></color-editable-input>
+    </div>
+
+    <!-- <color-editable-input
+      [style]="{input: RGBinput, wrap: RGBwrap, label: RGBlabel}"
+      [value]="cmyk.c"
+      label="c"
+      (onChange)="handleValueChange($event)"
+    ></color-editable-input>
+    <color-editable-input
+      [value]="cmyk.m"
+      label="m"
+      (onChange)="handleValueChange($event)"
+      [style]="{input: RGBinput, wrap: RGBwrap, label: RGBlabel}"
+    ></color-editable-input>
+    <color-editable-input
+      [value]="cmyk.y"
+      label="y"
+      (onChange)="handleValueChange($event)"
+      [style]="{input: RGBinput, wrap: RGBwrap, label: RGBlabel}"
+    ></color-editable-input>
+    <color-editable-input
+      [value]="cmyk.k"
+      label="k"
+      (onChange)="handleValueChange($event)"
+      [style]="{input: RGBinput, wrap: RGBwrap, label: RGBlabel}"
+    ></color-editable-input> -->
+
+
     <div class="photoshop-divider"></div>
+    <div *ngIf="showHex">
     <color-editable-input
       [value]="hex.replace('#', '')"
       label="#"
       (onChange)="handleValueChange($event)"
       [style]="{input: HEXinput, wrap: HEXwrap, label: HEXlabel}"
     ></color-editable-input>
-    <div class="photoshop-field-symbols">
+    </div>
+    <!-- <div class="photoshop-field-symbols">
       <div class="photoshop-symbol">°</div>
       <div class="photoshop-symbol">%</div>
       <div class="photoshop-symbol">%</div>
-    </div>
+    </div> -->
   </div>
   `,
   styles: [
@@ -94,7 +125,11 @@ export class PhotoshopFieldsComponent {
   @Input() rgb!: RGB;
   @Input() hsv!: HSV;
   @Input() hex!: string;
+  @Input() cmyk!: CMYK;
   @Output() onChange = new EventEmitter<any>();
+
+  @Input() showRGB!: boolean;
+  @Input() showHex!: boolean;
   RGBinput: Record<string, string> = {
     marginLeft: '35%',
     width: '40%',
@@ -142,6 +177,10 @@ export class PhotoshopFieldsComponent {
     height: '24px',
     lineHeight: '24px',
   };
+
+  ngAfterViewInit() {
+    debugger
+  }
 
   round(v) {
     return Math.round(v);

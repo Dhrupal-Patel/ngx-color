@@ -10,12 +10,12 @@ import { RGB } from 'ngx-color';
   selector: 'color-photoshop-previews',
   template: `
   <div>
-    <div class="photoshop-label">new</div>
+    <!-- <div class="photoshop-label">new</div> -->
     <div class="photoshop-swatches">
-      <div class="photoshop-new" [style.background]="backgroundNew"></div>
       <div class="photoshop-current" [style.background]="currentColor"></div>
+      <div class="photoshop-new" [style.background]="backgroundNew"></div>
     </div>
-    <div class="photoshop-label">current</div>
+    <!-- <div class="photoshop-label">current</div> -->
   </div>
   `,
   styles: [
